@@ -5,6 +5,7 @@ import App from './App.jsx'
 import ImageSlider from './components/ImageSlider.jsx';
 import Header from './components/Header.jsx';
 import TabForm from './components/TabForm.jsx';
+import CricketSorting from './components/CricketSorting.jsx';
 
 createRoot(document.getElementById('root')).render(
  
@@ -13,5 +14,6 @@ createRoot(document.getElementById('root')).render(
     <ImageSlider />
     {/* <Header country="India" /> */}
     <TabForm    />
+    <CricketSorting />
   </>
 )

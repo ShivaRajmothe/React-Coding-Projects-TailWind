@@ -18,8 +18,8 @@ const TabForm =() => {
     
     {name: "Profile", component: Profile, validate: () => {
       const err ={};
-      if(!data.name || data.name.length < 2){
-      err.name = "Name must be at least 2 characters long";
+      if(!data.name || !/^[a-zA-Z\s]+$/.test(data.name) ){
+      err.name = "Name must be string and  at least 2 characters long";
       }
       if(!data.email || !/\S+@\S+\.\S+/.test(data.email)){
         err.email = "Invalid email address";
@@ -104,7 +104,7 @@ const TabForm =() => {
     {activeTab === tabs.length - 1 && (
       <div className="p-4 text-center"> 
         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleSave}>
-            Save Changes
+           Submit
         </button>
       </div>
     )}
