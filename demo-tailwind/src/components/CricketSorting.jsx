@@ -13,6 +13,7 @@ const playersData = [
 export default function CricketSorting() {
   const [available, setAvailable] = useState(playersData);
   const [selected, setSelected] = useState([]);
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
 
   const addPlayer = (player) => {
     setSelected([...selected, player]);
@@ -22,6 +23,40 @@ export default function CricketSorting() {
   const removePlayer = (player) => {
     setAvailable([...available, player]);
     setSelected(selected.filter(p => p.id !== player.id));
+  };
+
+  const handleSort = (key) => {
+    let direction = 'asc';
+    if (sortConfig.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedData = (data) => {
+    if (!sortConfig.key) return data;
+    
+    const sorted = [...data].sort((a, b) => {
+      const aValue = a[sortConfig.key];
+      const bValue = b[sortConfig.key];
+
+      if (typeof aValue === 'string') {
+        return sortConfig.direction === 'asc'
+          ? aValue.localeCompare(bValue)
+          : bValue.localeCompare(aValue);
+      }
+
+      return sortConfig.direction === 'asc'
+        ? aValue - bValue
+        : bValue - aValue;
+    });
+
+    return sorted;
+  };
+
+  const getSortIndicator = (key) => {
+    if (sortConfig.key !== key) return ' ↕';
+    return sortConfig.direction === 'asc' ? ' ↑' : ' ↓';
   };
 
   return (
@@ -34,15 +69,35 @@ export default function CricketSorting() {
           <table className="w-full border-collapse">
             <thead>
               <tr className="bg-blue-100">
-                <th className="border border-gray-300 p-3 text-left font-semibold text-gray-700">Name</th>
-                <th className="border border-gray-300 p-3 text-left font-semibold text-gray-700">Role</th>
-                <th className="border border-gray-300 p-3 text-left font-semibold text-gray-700">Bat</th>
-                <th className="border border-gray-300 p-3 text-left font-semibold text-gray-700">Bowl</th>
+                <th 
+                  className="border border-gray-300 p-3 text-left font-semibold text-gray-700 cursor-pointer hover:bg-blue-200 transition-colors"
+                  onClick={() => handleSort('name')}
+                >
+                  Name{getSortIndicator('name')}
+                </th>
+                <th 
+                  className="border border-gray-300 p-3 text-left font-semibold text-gray-700 cursor-pointer hover:bg-blue-200 transition-colors"
+                  onClick={() => handleSort('role')}
+                >
+                  Role{getSortIndicator('role')}
+                </th>
+                <th 
+                  className="border border-gray-300 p-3 text-left font-semibold text-gray-700 cursor-pointer hover:bg-blue-200 transition-colors"
+                  onClick={() => handleSort('bat')}
+                >
+                  Bat{getSortIndicator('bat')}
+                </th>
+                <th 
+                  className="border border-gray-300 p-3 text-left font-semibold text-gray-700 cursor-pointer hover:bg-blue-200 transition-colors"
+                  onClick={() => handleSort('bowl')}
+                >
+                  Bowl{getSortIndicator('bowl')}
+                </th>
                 <th className="border border-gray-300 p-3 text-center font-semibold text-gray-700">Action</th>
               </tr>
             </thead>
             <tbody>
-              {available.map(player => (
+              {sortedData(available).map(player => (
                 <tr key={player.id} className="hover:bg-gray-50 transition-colors">
                   <td className="border border-gray-300 p-3 text-gray-700">{player.name}</td>
                   <td className="border border-gray-300 p-3 text-gray-700">{player.role}</td>
@@ -78,15 +133,35 @@ export default function CricketSorting() {
           <table className="w-full border-collapse">
             <thead>
               <tr className="bg-blue-100">
-                <th className="border border-gray-300 p-3 text-left font-semibold text-gray-700">Name</th>
-                <th className="border border-gray-300 p-3 text-left font-semibold text-gray-700">Role</th>
-                <th className="border border-gray-300 p-3 text-left font-semibold text-gray-700">Bat</th>
-                <th className="border border-gray-300 p-3 text-left font-semibold text-gray-700">Bowl</th>
+                <th 
+                  className="border border-gray-300 p-3 text-left font-semibold text-gray-700 cursor-pointer hover:bg-blue-200 transition-colors"
+                  onClick={() => handleSort('name')}
+                >
+                  Name{getSortIndicator('name')}
+                </th>
+                <th 
+                  className="border border-gray-300 p-3 text-left font-semibold text-gray-700 cursor-pointer hover:bg-blue-200 transition-colors"
+                  onClick={() => handleSort('role')}
+                >
+                  Role{getSortIndicator('role')}
+                </th>
+                <th 
+                  className="border border-gray-300 p-3 text-left font-semibold text-gray-700 cursor-pointer hover:bg-blue-200 transition-colors"
+                  onClick={() => handleSort('bat')}
+                >
+                  Bat{getSortIndicator('bat')}
+                </th>
+                <th 
+                  className="border border-gray-300 p-3 text-left font-semibold text-gray-700 cursor-pointer hover:bg-blue-200 transition-colors"
+                  onClick={() => handleSort('bowl')}
+                >
+                  Bowl{getSortIndicator('bowl')}
+                </th>
                 <th className="border border-gray-300 p-3 text-center font-semibold text-gray-700">Action</th>
               </tr>
             </thead>
             <tbody>
-              {selected.map(player => (
+              {sortedData(selected).map(player => (
                 <tr key={player.id} className="hover:bg-gray-50 transition-colors">
                   <td className="border border-gray-300 p-3 text-gray-700">{player.name}</td>
                   <td className="border border-gray-300 p-3 text-gray-700">{player.role}</td>
@@ -113,7 +188,6 @@ export default function CricketSorting() {
           </table>
         </div>
       </div>
-
     </div>
   );
-}
+}   
