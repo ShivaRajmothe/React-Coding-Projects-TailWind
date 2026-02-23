@@ -22,6 +22,33 @@ const STATE_DATA = {
     "Sindh",
     "Azad Jammu and Kashmir",
   ],
+  USA :
+  [    "Alabama",
+    "Alaska",
+    "Arizona",
+    "Arkansas",
+    "California",
+    "Colorado",
+    "Connecticut",
+    "Delaware",
+    "Florida",
+    "Georgia",
+  ],
+  UK :
+  [    "England",
+    "Scotland",  
+    "Wales",
+    "Northern Ireland",
+  ],  
+  Australia :
+  [    "New South Wales",
+    "Queensland",
+    "South Australia",
+    "Tasmania",
+    "Victoria",
+    "Western Australia",
+  ],
+
 };
 
 export default function CountryStateDropdown() {
@@ -69,6 +96,9 @@ export default function CountryStateDropdown() {
         </option>
         <option value="India">India</option>
         <option value="Pakistan">Pakistan</option>
+        <option value="USA">USA</option>
+        <option value="UK">UK</option>
+        <option value="Australia">Australia</option>
       </select>
 
       {/* State Dropdown */}
