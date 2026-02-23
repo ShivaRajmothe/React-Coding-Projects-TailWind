@@ -7,6 +7,7 @@ import Header from './components/Header.jsx';
 import TabForm from './components/TabForm.jsx';
 import CricketSorting from './components/CricketSorting.jsx';
 import CountryStateDropdown from './components/CountryStateDropdown.jsx';
+import LazyLoading from './components/LazyLoading.jsx';
 
 createRoot(document.getElementById('root')).render(
  
@@ -17,5 +18,6 @@ createRoot(document.getElementById('root')).render(
     <TabForm    />
     <CricketSorting />
     <CountryStateDropdown />
+    <LazyLoading />
   </>
 )
